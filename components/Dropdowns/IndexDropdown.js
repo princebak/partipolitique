@@ -20,14 +20,14 @@ const IndexDropdown = () => {
     <>
       <a
         className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
-        href="#pablo"
+        href="#"
         ref={btnDropdownRef}
         onClick={(e) => {
           e.preventDefault();
           dropdownPopoverShow ? closeDropdownPopover() : openDropdownPopover();
         }}
       >
-        Demo Pages
+        Menu
       </a>
       <div
         ref={popoverDropdownRef}
@@ -41,63 +41,50 @@ const IndexDropdown = () => {
             "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
           }
         >
-          Admin Layout
+          Menu principal
         </span>
-        <Link href="/admin/dashboard#pablo" className={
+        <Link href="/admin/dashboard" className={
               "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
             }>
           Dashboard
         </Link>
-        <Link href="/admin/settings#pablo" className={
+        <Link href="/admin/tables" className={
               "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
             }>
-          Settings
+          Membres
         </Link>
-        <Link href="/admin/tables#pablo" className={
+        <Link href="#" className={
               "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
             }>
-          Tables
+          Cotisations
         </Link>
-        <Link href="/admin/maps#pablo" className={
+        <Link href="#" className={
               "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
             }>
-          Maps
+          Evenements
         </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
+        <Link href="#" className={
+              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            }>
+          Annonces
+        </Link>
+        <Link href="#" className={
+              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            }>
+          Federations
+        </Link>
+
         <span
           className={
             "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
           }
         >
-          Auth Layout
+          Autres
         </span>
-        <Link href="/auth/login#pablo" className={
+        <Link href="/logout" className={
               "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
             }>
-          Login
-        </Link>
-        <Link href="/auth/register#pablo" className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }>
-          Register
-        </Link>
-        <div className="h-0 mx-4 my-2 border border-solid border-blueGray-100" />
-        <span
-          className={
-            "text-sm pt-2 pb-0 px-4 font-bold block w-full whitespace-nowrap bg-transparent text-blueGray-400"
-          }
-        >
-          No Layout
-        </span>
-        <Link href="/landing#pablo" className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }>
-          Landing
-        </Link>
-        <Link href="/profile#pablo" className={
-              "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-            }>
-          Profile
+          Se deconnecter
         </Link>
       </div>
     </>

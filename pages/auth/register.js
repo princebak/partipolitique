@@ -1,15 +1,52 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
 // layout for page
 
 import Auth from "layouts/Auth.js";
 
 export default function Register() {
-  const router = useRouter()
-  const handleSubmit = ()=>{
-    router.push("/auth/login");
-  }
+  const router = useRouter();
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("H");
+  const [dob, setDob] = useState("");
+  const [maritalStatus, setMaritalStatus] = useState("");
+  const [federation, setFederation] = useState("");
+  const [adress, setAdress] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const handleSubmit = async () => {
+    const rep = await axios
+      .post(
+        "api/register",
+        {
+          fullName,
+          email,
+          gender,
+          dob,
+          maritalStatus,
+          federation,
+          adress,
+          password,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(() => {
+        router.push("/auth/login");
+      })
+      .catch((error) => {
+        console.log("Error on Registration : ", error);
+        router.push("/auth/register?error=true");
+      });
+  };
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -30,7 +67,7 @@ export default function Register() {
                 </div>
                 <form>
                   <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-                    <div style={{padding: "0 5px"}}>
+                    <div style={{ padding: "0 5px" }}>
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -44,6 +81,8 @@ export default function Register() {
                           placeholder="Bakenga Ilunga Prince"
                           id="fullName"
                           required
+                          value={fullName}
+                          onChange={(e) => setFullName(e.target.value)}
                         />
                       </div>
 
@@ -52,13 +91,16 @@ export default function Register() {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="email"
                         >
-                          E-mail
+                          E-mail *
                         </label>
                         <input
                           type="email"
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           placeholder="E-mail"
                           id="email"
+                          required
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
 
@@ -71,30 +113,40 @@ export default function Register() {
                         </label>
                         <label>
                           <input
-                            type="radio" name ="sex" value="H" id="sex1"
-                          /> H
+                            type="radio"
+                            checked={gender === "H"}
+                            value="H"
+                            onChange={(e) => setGender(e.target.value)}
+                          />{" "}
+                          H
                         </label>
-                        <label style={{marginLeft: "10px"}}>
+                        <label style={{ marginLeft: "10px" }}>
                           <input
-                            type="radio" name ="sex" value="F"
-                          /> F
+                            type="radio"
+                            value="F"
+                            checked={gender === "F"}
+                            onChange={(e) => setGender(e.target.value)}
+                          />{" "}
+                          F
                         </label>
-                        
                       </div>
                     </div>
 
-                    <div style={{padding: "0 5px"}}>
+                    <div style={{ padding: "0 5px" }}>
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="dob"
                         >
-                          Date de naissance
+                          Date de naissance *
                         </label>
                         <input
                           type="date"
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           id="dob"
+                          required
+                          value={dob}
+                          onChange={(e) => setDob(e.target.value)}
                         />
                       </div>
 
@@ -103,11 +155,14 @@ export default function Register() {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="civil-status"
                         >
-                          Etat civil
+                          Etat civil *
                         </label>
                         <select
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           id="civil-status"
+                          required
+                          value={maritalStatus}
+                          onChange={(e) => setMaritalStatus(e.target.value)}
                         >
                           <option value="celibataire">Celibataire</option>
                           <option value="Marié">Marié</option>
@@ -120,12 +175,15 @@ export default function Register() {
                           className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                           htmlFor="federation"
                         >
-                          Federation
+                          Federation *
                         </label>
                         <select
                           type="password"
                           className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                           id="federation"
+                          required
+                          value={federation}
+                          onChange={(e) => setFederation(e.target.value)}
                         >
                           <option value="fédération 1">Fédération 1</option>
                           <option value="fédération 2">Fédération 2</option>
@@ -135,55 +193,62 @@ export default function Register() {
                     </div>
                   </div>
                   <div className="relative w-full mb-3">
-                        <label
-                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                          htmlFor="address"
-                        >
-                          Adresse
-                        </label>
-                        <textarea
-                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                          placeholder="Votre adresse"
-                          id="address"
-                        ></textarea>
+                    <label
+                      className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                      htmlFor="address"
+                    >
+                      Adresse
+                    </label>
+                    <textarea
+                      className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      placeholder="Votre adresse"
+                      id="address"
+                      value={adress}
+                      onChange={(e) => setAdress(e.target.value)}
+                    ></textarea>
                   </div>
                   <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
-                    <div style={{padding: "0 5px"}}>
-                    <div className="relative w-full mb-3">
-                          <label
-                            className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                            htmlFor="password"
-                          >
-                            Mot de passe
-                          </label>
-                          <input
-                            type="password"
-                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            placeholder="Mot de passe"
-                            id="password"
-                          />
+                    <div style={{ padding: "0 5px" }}>
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="password"
+                        >
+                          Mot de passe *
+                        </label>
+                        <input
+                          type="password"
+                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          placeholder="Mot de passe"
+                          id="password"
+                          required
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                        />
+                      </div>
                     </div>
-                    </div>
-                    
-                    <div style={{padding: "0 5px"}}>
-                    <div className="relative w-full mb-3">
-                          <label
-                            className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                            htmlFor="confirm-password"
-                          >
-                            Confirmer le Mot de passe
-                          </label>
-                          <input
-                            type="password"
-                            className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                            placeholder="Confirmer le Mot de passe"
-                            id="confirm-password"
-                          />
-                    </div>
-                    </div>
-                    
-                  </div>
 
+                    <div style={{ padding: "0 5px" }}>
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                          htmlFor="confirm-password"
+                        >
+                          Confirmer le Mot de passe *
+                        </label>
+                        <input
+                          type="password"
+                          className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                          placeholder="Confirmer le Mot de passe"
+                          id="confirm-password"
+                          required
+                          value={confirmPassword}
+                          onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {/* 
                   <div>
                     <label className="inline-flex items-center cursor-pointer">
                       <input
@@ -194,7 +259,7 @@ export default function Register() {
                       <span className="ml-2 text-sm font-semibold text-blueGray-600">
                         I agree with the{" "}
                         <a
-                          href="#pablo"
+                          href="#"
                           className="text-lightBlue-500"
                           onClick={(e) => e.preventDefault()}
                         >
@@ -202,9 +267,8 @@ export default function Register() {
                         </a>
                       </span>
                     </label>
-                  </div>
+                  </div> */}
 
-                  
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
