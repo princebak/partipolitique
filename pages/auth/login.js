@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useState } from "react";
 //import type { NextPage } from "next";
 import { useSession, signIn } from "next-auth/react";
-import { Field, Form, Formik } from "formik";
 
 // layout for page
 
@@ -12,17 +11,17 @@ import { useRouter } from "next/router";
 
 export default function Login() {
   const router = useRouter();
-  const handleSubmit = () => {
-    //console.log({email, password});
-    //router.push("/profile");
-  };
-  const formSubmit = () => {
-    const res = signIn("credentials", {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const loginForm = {
       email: email,
       password: password,
       redirect: false,
-      callbackUrl: `${window.location.origin}`,
-    });
+      // callbackUrl: `${window.location.origin}`,
+    };
+    const res = await signIn("credentials", loginForm);
+    console.log("Login Request : ", loginForm);
+    console.log("Login Response : ", res);
     res.error ? console.log(res.error) : router.push("/profile");
   };
 
@@ -44,84 +43,58 @@ export default function Login() {
 
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
-              <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <Formik
-                  initialValues={{}}
-                  validateOnChange={false}
-                  validateOnBlur={false}
-                  onSubmit={() => {
-                    formSubmit();
-                  }}
-                >
-                  {() => (
-                    <Form>
-                      <Field>
-                        {() => (
-                          <div className="relative w-full mb-3">
-                            <label
-                              className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                              htmlFor="grid-password"
-                            >
-                              E-mail
-                            </label>
-                            <input
-                              type="email"
-                              className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                              placeholder="E-mail"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <Field>
-                        {() => (
-                          <div className="relative w-full mb-3">
-                            <label
-                              className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                              htmlFor="grid-password"
-                            >
-                              Mot de passe
-                            </label>
-                            <input
-                              type="password"
-                              className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                              placeholder="Mot de passe"
-                              onChange={(e) => setPassword(e.target.value)}
-                            />
-                          </div>
-                        )}
-                      </Field>
-                      <Field>
-                        {() => (
-                          <div>
-                            <label className="inline-flex items-center cursor-pointer">
-                              <input
-                                id="customCheckLogin"
-                                type="checkbox"
-                                className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
-                              />
-                              <span className="ml-2 text-sm font-semibold text-blueGray-600">
-                                Se souvenir de moi
-                              </span>
-                            </label>
-                          </div>
-                        )}
-                      </Field>
-
-                      <div className="text-center mt-6">
-                        <button
-                          className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                          type="submit"
-                          //onClick={()=> handleSubmit()}
-                        >
-                          Se Connecter
-                        </button>
-                      </div>
-                    </Form>
-                  )}
-                </Formik>
-              </div>
+              <form className="flex-auto px-4 lg:px-10 py-10 pt-0">
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    E-mail
+                  </label>
+                  <input
+                    type="email"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    placeholder="E-mail"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="relative w-full mb-3">
+                  <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Mot de passe
+                  </label>
+                  <input
+                    type="password"
+                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    placeholder="Mot de passe"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label className="inline-flex items-center cursor-pointer">
+                    <input
+                      id="customCheckLogin"
+                      type="checkbox"
+                      className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                    />
+                    <span className="ml-2 text-sm font-semibold text-blueGray-600">
+                      Se souvenir de moi
+                    </span>
+                  </label>
+                </div>
+                <div className="text-center mt-6">
+                  <button
+                    className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                    type="submit"
+                    onClick={(e) => handleSubmit(e)}
+                  >
+                    Se Connecter
+                  </button>
+                </div>
+              </form>
             </div>
             <div className="flex flex-wrap mt-6 relative">
               <div className="w-1/2">

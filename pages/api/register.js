@@ -7,7 +7,7 @@ const validateEmail = (email) => {
   return regExp.test(email);
 };
 const validatePassword = (password, confirmPassword) => {
-  return password.length > 5 && password === confirmPassword;
+  return password.length >= 5 && password === confirmPassword;
 };
 const validateForm = async (email, password, confirmPassword) => {
   if (!validateEmail(email)) {
@@ -37,15 +37,21 @@ export default async function handler(req, res) {
       .status(400)
       .json({ error: "This API call only accepts POST method." });
   }
-  const { email, password, confirmPassword } = req.body;
+  const data = req.body;
+  const { email, password, confirmPassword, dob } = data;
   const validateFormRes = await validateForm(email, password, confirmPassword);
   if (validateFormRes) {
     return res.status(400).json(validateFormRes);
   }
 
   const hashedPassword = await bcrypt.hash(password, 12);
+  const goodData = {
+    ...data,
+    dob: new Date(dob),
+    password: hashedPassword,
+  };
+  const newUser = new User(goodData);
 
-  const newUser = new User({ email, password: hashedPassword });
   newUser
     .save()
     .then(() => {

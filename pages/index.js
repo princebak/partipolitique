@@ -3,7 +3,7 @@ import Router from "next/router";
 
 export default class Home extends Component {
   componentDidMount = () => {
-    Router.push("/auth/login");
+    //Router.push("/");
   };
 
   render() {

@@ -19,31 +19,30 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = async () => {
+    const data = {
+      fullName,
+      email,
+      gender,
+      dob,
+      maritalStatus,
+      federation,
+      adress,
+      password,
+      confirmPassword,
+    };
     const rep = await axios
-      .post(
-        "api/register",
-        {
-          fullName,
-          email,
-          gender,
-          dob,
-          maritalStatus,
-          federation,
-          adress,
-          password,
+      .post("/api/register", data, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      })
       .then(() => {
         router.push("/auth/login");
       })
       .catch((error) => {
         console.log("Error on Registration : ", error);
+        console.log(data);
         router.push("/auth/register?error=true");
       });
   };

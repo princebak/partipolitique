@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "next/app";
 import Head from "next/head";
 import Router from "next/router";
-import AppContextProvider from "../context/AppContextProviver"
+import AppContextProvider from "../context/AppContextProviver";
 import { SessionProvider } from "next-auth/react";
 
 import PageChange from "components/PageChange/PageChange.js";
@@ -61,9 +61,21 @@ export default class MyApp extends App {
     return { pageProps };
   }
   render() {
-    const { Component, pageProps: {session, ...pageProps} } = this.props;
+    const {
+      Component,
+      pageProps: { session, ...pageProps },
+    } = this.props;
 
     const Layout = Component.layout || (({ children }) => <>{children}</>);
+
+    if (!session) {
+      console.log("NOT CONNECTED USER...");
+      //console.log(Router);
+      //Router.push("/auth/login");
+    } else {
+      console.log("CONNECTED USER");
+      console.log(session.user);
+    }
 
     return (
       <AppContextProvider>
