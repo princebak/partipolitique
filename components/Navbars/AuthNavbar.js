@@ -10,19 +10,23 @@ import { useAppContext } from "context/AppContextProviver";
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const router = useRouter();
-  const {user, lang, dispatch} = useAppContext();
+  const { user, lang, dispatch } = useAppContext();
   console.log("-----------------------------");
   console.log(useAppContext());
   return (
-    
-
     <>
       <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <Link href="#" className="text-white text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase">
-              <img src="/img/brand/drc1.jpeg" style={{height: 40, border: "solid 1px #ffffff"}} />
-            </Link>            
+            <Link
+              href="#"
+              className="text-white text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
+            >
+              <img
+                src="/img/brand/drc1.jpeg"
+                style={{ height: 40, border: "solid 1px #ffffff" }}
+              />
+            </Link>
           </div>
           <div
             className={
@@ -33,9 +37,9 @@ export default function Navbar(props) {
           >
             <ul className="flex flex-col lg:flex-row list-none mr-auto">
               <li className="flex items-center">
-              <label className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-                RDC PartiPolitique
-              </label>
+                <label className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
+                  RDC PartiPolitique
+                </label>
               </li>
             </ul>
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
@@ -44,20 +48,21 @@ export default function Navbar(props) {
               <li><button onClick={()=>dispatch({type: "UPDATE_LANG", payload: "en"})}>Click2</button></li>
               <li>{lang}</li> */}
               <li className="flex items-center">
-                
-                {
-                  router.pathname == "/auth/login" ?
-                    <Link href="/auth/register" className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-                      S'inscrire
-                    </Link>
-                          :
-                    router.pathname == "/auth/register" ?
-                      <Link href="/auth/login" className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-                        Se connecter
-                      </Link>
-                            :
-                      <IndexDropdown />
-                }
+                {router.pathname == "/auth/register" ? (
+                  <Link
+                    href="/auth/login"
+                    className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                  >
+                    Se connecter
+                  </Link>
+                ) : (
+                  <Link
+                    href="/auth/register"
+                    className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                  >
+                    S'inscrire
+                  </Link>
+                )}
               </li>
             </ul>
           </div>
@@ -67,7 +72,6 @@ export default function Navbar(props) {
               Notre PartiPolitique est basé sur la bonne gouvernance, l'état de droit, le progrès social, l'amour de la patrie, du patriote et du travail pour assurer un avenir radieux pour notre progeniture.
             </p>
           </div> */}
-          
         </div>
       </nav>
     </>

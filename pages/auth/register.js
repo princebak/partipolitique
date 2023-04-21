@@ -10,7 +10,7 @@ export default function Register() {
   const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("H");
+  const [gender, setGender] = useState("Homme");
   const [dob, setDob] = useState("");
   const [maritalStatus, setMaritalStatus] = useState("");
   const [federation, setFederation] = useState("");
@@ -113,20 +113,20 @@ export default function Register() {
                         <label>
                           <input
                             type="radio"
-                            checked={gender === "H"}
-                            value="H"
+                            checked={gender === "Homme"}
+                            value="Homme"
                             onChange={(e) => setGender(e.target.value)}
                           />{" "}
-                          H
+                          Homme
                         </label>
                         <label style={{ marginLeft: "10px" }}>
                           <input
                             type="radio"
-                            value="F"
-                            checked={gender === "F"}
+                            value="Femme"
+                            checked={gender === "Femme"}
                             onChange={(e) => setGender(e.target.value)}
                           />{" "}
-                          F
+                          Femme
                         </label>
                       </div>
                     </div>

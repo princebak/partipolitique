@@ -6,8 +6,24 @@ import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import HeaderStats from "components/Headers/HeaderStats.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
+import { useSession } from "next-auth/react";
+import Router, { useRouter } from "next/router";
+import Auth from "./Auth";
+import Login from "pages/auth/login";
 
 export default function Admin({ children }) {
+  const { data: session } = useSession();
+  const router = useRouter();
+  if (!session) {
+    router.pathname = "/auth/login";
+    return (
+      <>
+        <Auth>
+          <Login />
+        </Auth>
+      </>
+    );
+  }
   return (
     <>
       <Sidebar />

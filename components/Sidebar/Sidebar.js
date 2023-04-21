@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
@@ -88,10 +88,10 @@ export default function Sidebar() {
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
                 <Link
-                  href="/admin/dashboard"
+                  href="/dashboard"
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (router.pathname.indexOf("/admin/dashboard") !== -1
+                    (router.pathname.indexOf("/dashboard") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
@@ -99,7 +99,7 @@ export default function Sidebar() {
                   <i
                     className={
                       "fas fa-tv mr-2 text-sm " +
-                      (router.pathname.indexOf("/admin/dashboard") !== -1
+                      (router.pathname.indexOf("/dashboard") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -110,10 +110,10 @@ export default function Sidebar() {
 
               <li className="items-center">
                 <Link
-                  href="/admin/tables"
+                  href="/members"
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (router.pathname.indexOf("/admin/settings") !== -1
+                    (router.pathname.indexOf("/members") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
@@ -121,7 +121,7 @@ export default function Sidebar() {
                   <i
                     className={
                       "fas fa-table mr-2 text-sm " +
-                      (router.pathname.indexOf("/admin/tables") !== -1
+                      (router.pathname.indexOf("/members") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
@@ -130,7 +130,7 @@ export default function Sidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
+              {/*               <li className="items-center">
                 <Link
                   href="/admin/tables"
                   className={
@@ -216,7 +216,7 @@ export default function Sidebar() {
                   ></i>{" "}
                   Federations
                 </Link>
-              </li>
+              </li> */}
             </ul>
 
             {/* Divider */}
@@ -241,7 +241,7 @@ export default function Sidebar() {
                 <Link
                   href="#"
                   onClick={() => {
-                    signOut();
+                    signOut({ callbackUrl: "/auth/login" });
                   }}
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
                 >
