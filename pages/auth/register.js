@@ -12,8 +12,8 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("Homme");
   const [dob, setDob] = useState("");
-  const [maritalStatus, setMaritalStatus] = useState("");
-  const [federation, setFederation] = useState("");
+  const [maritalStatus, setMaritalStatus] = useState("Celibataire");
+  const [federation, setFederation] = useState("fédération 1");
   const [adress, setAdress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -42,7 +42,6 @@ export default function Register() {
       })
       .catch((error) => {
         console.log("Error on Registration : ", error);
-        console.log(data);
         router.push("/auth/register?error=true");
       });
   };
@@ -163,7 +162,7 @@ export default function Register() {
                           value={maritalStatus}
                           onChange={(e) => setMaritalStatus(e.target.value)}
                         >
-                          <option value="celibataire">Celibataire</option>
+                          <option value="Celibataire">Celibataire</option>
                           <option value="Marié">Marié</option>
                           <option value="Divorcé">Divorcé</option>
                         </select>
