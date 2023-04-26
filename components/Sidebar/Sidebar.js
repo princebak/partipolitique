@@ -4,11 +4,12 @@ import Router, { useRouter } from "next/router";
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const router = useRouter();
+  const { data: session } = useSession();
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -107,28 +108,31 @@ export default function Sidebar() {
                   Tableau de bord
                 </Link>
               </li>
-
-              <li className="items-center">
-                <Link
-                  href="/members"
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (router.pathname.indexOf("/members") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                >
-                  <i
+              {session.user.type === "admin" ? (
+                <li className="items-center">
+                  <Link
+                    href="/members"
                     className={
-                      "fas fa-table mr-2 text-sm " +
+                      "text-xs uppercase py-3 font-bold block " +
                       (router.pathname.indexOf("/members") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
+                        ? "text-lightBlue-500 hover:text-lightBlue-600"
+                        : "text-blueGray-700 hover:text-blueGray-500")
                     }
-                  ></i>{" "}
-                  Membres
-                </Link>
-              </li>
+                  >
+                    <i
+                      className={
+                        "fas fa-table mr-2 text-sm " +
+                        (router.pathname.indexOf("/members") !== -1
+                          ? "opacity-75"
+                          : "text-blueGray-300")
+                      }
+                    ></i>{" "}
+                    Membres
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
 
               {/*               <li className="items-center">
                 <Link

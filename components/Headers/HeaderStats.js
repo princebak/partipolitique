@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 
 export default function HeaderStats() {
   const router = useRouter();
-  console.log("PATHNAME >> ", router.pathname);
   return (
     <>
       {/* Header */}
@@ -19,7 +18,7 @@ export default function HeaderStats() {
               <div className="flex flex-wrap">
                 <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                   <CardStats
-                    statSubtitle="TRAFFIC"
+                    statSubtitle="Membres"
                     statTitle="350,897"
                     statArrow="up"
                     statPercent="3.48"
@@ -31,7 +30,7 @@ export default function HeaderStats() {
                 </div>
                 <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                   <CardStats
-                    statSubtitle="NEW USERS"
+                    statSubtitle="M. Hommes"
                     statTitle="2,356"
                     statArrow="down"
                     statPercent="3.48"
@@ -43,7 +42,7 @@ export default function HeaderStats() {
                 </div>
                 <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
                   <CardStats
-                    statSubtitle="SALES"
+                    statSubtitle="M. Femmes"
                     statTitle="924"
                     statArrow="down"
                     statPercent="1.10"

@@ -5,6 +5,9 @@ import PropTypes from "prop-types";
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
+// Utils
+import { formatDate } from "utils/formatter";
+
 export default function CardTable({ color, users }) {
   return (
     <>
@@ -133,7 +136,7 @@ export default function CardTable({ color, users }) {
                     {user.gender}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                    {user.dob}
+                    {formatDate(user.dob)}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                     {user.maritalStatus}
