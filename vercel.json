@@ -1,0 +1,11 @@
+{
+  "env": {
+    "MONGODB_URI": "mongodb+srv://princebak:princebak@bakil-free-cluster.oejtkcq.mongodb.net/partipolitique?retryWrites=true&w=majority"
+  },
+
+  "build": {
+    "env": {
+      "MONGODB_URI": "mongodb+srv://princebak:princebak@bakil-free-cluster.oejtkcq.mongodb.net/partipolitique?retryWrites=true&w=majority"
+    }
+  }
+}
