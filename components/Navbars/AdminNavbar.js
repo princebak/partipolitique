@@ -22,9 +22,7 @@ export default function Navbar() {
               ? "Tableau de bord"
               : router.pathname === "/members"
               ? "Membres"
-              : router.pathname === "/profile"
-              ? "Profil"
-              : ""}
+              : "Profil"}
           </a>
           {/* Form */}
 

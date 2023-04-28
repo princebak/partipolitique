@@ -1,5 +1,5 @@
-import dbConnect from "../../lib/dbConnect";
-import User from "../../model/User";
+import dbConnect from "../../../lib/dbConnect";
+import User from "../../../model/User";
 
 export default async function handler(req, res) {
   /* switch(req.method){

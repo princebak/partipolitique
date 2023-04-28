@@ -15,7 +15,6 @@ export default function Admin({ children }) {
   const { data: session } = useSession();
   const router = useRouter();
   if (!session) {
-    router.pathname = "/auth/login";
     return (
       <>
         <Auth>

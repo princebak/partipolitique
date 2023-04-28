@@ -7,6 +7,7 @@ import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
 // Utils
 import { formatDate } from "utils/formatter";
+import Link from "next/link";
 
 export default function CardTable({ color, users }) {
   return (
@@ -119,7 +120,7 @@ export default function CardTable({ color, users }) {
                           : "text-white")
                       }
                     >
-                      {user.fullName}
+                      <Link href={`/members/${user._id}`}>{user.fullName}</Link>
                     </span>
                   </th>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">

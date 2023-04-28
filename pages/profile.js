@@ -11,23 +11,29 @@ import Router from "next/router";
 
 import Admin from "layouts/Admin.js";
 
-export default function Settings() {
+export default function Profile({ member }) {
   const { data: session } = useSession();
   if (!session) {
     Router.push("/auth/login");
+  }
+  let user;
+  if (member) {
+    user = { ...member, isFromMembersPage: true };
+  } else {
+    user = session.user;
   }
   return (
     <>
       <div className="flex flex-wrap">
         <div className="w-full lg:w-8/12 px-4">
-          <CardSettings />
+          <CardSettings user={user} />
         </div>
         <div className="w-full lg:w-4/12 px-4">
-          <CardProfile />
+          <CardProfile user={user} />
         </div>
       </div>
     </>
   );
 }
 
-Settings.layout = Admin;
+Profile.layout = Admin;
